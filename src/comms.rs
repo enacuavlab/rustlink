@@ -67,7 +67,7 @@ pub struct LinkConfig {
 fn configure_port(
     mut port: serial::SystemPort,
     baud: usize,
-) -> Result<serial::SystemPort, Box<Error>> {
+) -> Result<serial::SystemPort, Box<dyn Error>> {
     let baud = serial::core::BaudRate::from_speed(baud);
     let settings = serial::core::PortSettings {
         baud_rate: baud,
@@ -98,7 +98,7 @@ pub struct LinkComm {
 }
 
 impl LinkComm {
-    pub fn new(config: Arc<LinkConfig>) -> Result<LinkComm, Box<Error>> {
+    pub fn new(config: Arc<LinkConfig>) -> Result<LinkComm, Box<dyn Error>> {
         if config.udp {
             // use sockets
             let mut com = LinkComm {

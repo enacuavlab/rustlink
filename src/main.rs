@@ -44,7 +44,7 @@ fn thread_main_secure(
     config: Arc<LinkConfig>,
     dictionary: Arc<PprzDictionary>,
     msg_queue: Arc<Mutex<VecDeque<PprzMessage>>>,
-) -> Result<(), Box<Error>> {
+) -> Result<(), Box<dyn Error>> {
     println!("Starting encrypted datalink...");
     let mut port = match LinkComm::new(Arc::clone(&config)) {
         Ok(p) => p,
@@ -190,7 +190,7 @@ fn thread_main(
     config: Arc<LinkConfig>,
     dictionary: Arc<PprzDictionary>,
     msg_queue: Arc<Mutex<VecDeque<PprzMessage>>>,
-) -> Result<(), Box<Error>> {
+) -> Result<(), Box<dyn Error>> {
     println!("Starting regular datalink...");
 
     let mut port = match LinkComm::new(Arc::clone(&config)) {
@@ -238,7 +238,7 @@ fn thread_main(
 
                 // get a transort
                 let mut tx = PprzTransport::new();
-                let mut buf = new_msg.to_bytes();
+                let buf = new_msg.to_bytes();
 
                 // construct a message from the transport
                 tx.construct_pprz_msg(&buf);
@@ -352,7 +352,7 @@ fn thread_ping(
 ///
 /// This thread only launchees `IvyMainLoop()` and loops forever
 /// Uses the optional argument specifying a non-default bus address
-fn thread_ivy_main(ivy_bus: String) -> Result<(), Box<Error>> {
+fn thread_ivy_main(ivy_bus: String) -> Result<(), Box<dyn Error>> {
     ivyrust::ivy_init(String::from("Link"), String::from("Ready"));
     if !ivy_bus.is_empty() {
         ivyrust::ivy_start(Some(ivy_bus));

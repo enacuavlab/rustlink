@@ -233,7 +233,7 @@ fn link_load_keys(pprz_root: String, ac_name: Option<&str>) -> (Vec<u8>, Vec<u8>
 			        if re_p_a.is_match(&line) {
 			            let mut data: Vec<&str> = line.split(|c| c == ' ').collect();
 			            let data = data.pop().unwrap();
-			            let mut data: Vec<&str> = data.split(|c| c == ',' || c == '{' || c == '}').collect();
+			            let data: Vec<&str> = data.split(|c| c == ',' || c == '{' || c == '}').collect();
 			
 			            let mut idx = 0;
 			            for value in data {
@@ -255,7 +255,7 @@ fn link_load_keys(pprz_root: String, ac_name: Option<&str>) -> (Vec<u8>, Vec<u8>
 			        if re_q_a.is_match(&line) {
 			            let mut data: Vec<&str> = line.split(|c| c == ' ').collect();
 			            let data = data.pop().unwrap();
-			            let mut data: Vec<&str> = data.split(|c| c == ',' || c == '{' || c == '}').collect();
+			            let data: Vec<&str> = data.split(|c| c == ',' || c == '{' || c == '}').collect();
 			
 			            for value in data {
 			                match value.parse::<u8>() {
@@ -276,7 +276,7 @@ fn link_load_keys(pprz_root: String, ac_name: Option<&str>) -> (Vec<u8>, Vec<u8>
 			        if re_p_b.is_match(&line) {
 			            let mut data: Vec<&str> = line.split(|c| c == ' ').collect();
 			            let data = data.pop().unwrap();
-			            let mut data: Vec<&str> = data.split(|c| c == ',' || c == '{' || c == '}').collect();
+			            let data: Vec<&str> = data.split(|c| c == ',' || c == '{' || c == '}').collect();
 			
 			            for value in data {
 			                match value.parse::<u8>() {

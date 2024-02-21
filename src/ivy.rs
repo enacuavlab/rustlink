@@ -84,7 +84,7 @@ impl LinkIvyPing {
     {
         let regexpr = CString::new(regexpr).unwrap();
         {
-	        let boxed_cb: Box<(Box<Fn(&mut LinkIvyPing, Vec<String>)>, &mut LinkIvyPing)> =
+	        let boxed_cb: Box<(Box<dyn Fn(&mut LinkIvyPing, Vec<String>)>, &mut LinkIvyPing)> =
 	            Box::new((Box::new(cb), self));
 	        unsafe {
 			        Some(IvyBindMsg(
@@ -146,7 +146,7 @@ impl LinkIvySubscriber {
     {
         let regexpr = CString::new(regexpr).unwrap();
         {
-	        let boxed_cb: Box<(Box<Fn(&mut LinkIvySubscriber, Vec<String>)>, &mut LinkIvySubscriber)> =
+	        let boxed_cb: Box<(Box<dyn Fn(&mut LinkIvySubscriber, Vec<String>)>, &mut LinkIvySubscriber)> =
 	            Box::new((Box::new(cb), self));
 	        unsafe {
 			        Some(IvyBindMsg(
@@ -173,7 +173,7 @@ extern "C" fn apply_closure_ping(_app: IvyClientPtr,
         }
     }
     
-    let payload: &mut (Box<Fn(&mut LinkIvyPing, Vec<String>) -> ()>, &mut LinkIvyPing) =
+    let payload: &mut (Box<dyn Fn(&mut LinkIvyPing, Vec<String>) -> ()>, &mut LinkIvyPing) =
         unsafe { mem::transmute(user_data) };
     
     payload.0(&mut payload.1, v);
@@ -191,7 +191,7 @@ extern "C" fn apply_closure_sender_callback(_app: IvyClientPtr,
         }
     }
     
-    let payload: &mut (Box<Fn(&mut LinkIvySubscriber, Vec<String>) -> ()>, &mut LinkIvySubscriber) =
+    let payload: &mut (Box<dyn Fn(&mut LinkIvySubscriber, Vec<String>) -> ()>, &mut LinkIvySubscriber) =
         unsafe { mem::transmute(user_data) };
     
     payload.0(&mut payload.1, v);
