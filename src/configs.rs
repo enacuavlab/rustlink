@@ -398,11 +398,14 @@ pub fn link_init_and_configure() -> Arc<LinkConfig> {
     let ac_name = matches.value_of("ac_name");
     println!("Value for aircraft name: {:?}", ac_name);
 
-    let ac_id = matches.value_of("ac_id").expect("AC_ID not specified");
-    let ac_id = ac_id
-        .parse::<u8>()
-        .expect("AC_ID cannot be parsed. Make sure it is between 1 and 254");
-    println!("Value for aircraft ID: {}", ac_id);
+    let ac_id = match matches.value_of("ac_id") {
+        Some(ac_id) => {
+            let id = ac_id.parse::<u8>()
+            .expect("AC_ID cannot be parsed. Make sure it is between 1 and 254");
+        Some(id)
+        },
+        None => None
+    };
 
     let gec_enabled = match matches.occurrences_of("crypto") {
         0 => false,

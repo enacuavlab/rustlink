@@ -67,7 +67,8 @@ fn thread_main_secure(
         .id;
 
     // use crypto
-    let mut trans = SecurePprzTransport::new(StsParty::Initiator, config.ac_id);
+    let ac_id = config.ac_id.expect("AC_ID not specified");
+    let mut trans = SecurePprzTransport::new(StsParty::Initiator, ac_id);
     trans.set_sender(0);
     trans.my_private_key.set(&config.q_a, &config.p_a).unwrap();
     trans.their_public_key.set(&config.p_b).unwrap();

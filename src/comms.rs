@@ -49,7 +49,7 @@ pub struct LinkConfig {
     /// Allow UDP broadcast
     pub udp_broadcast: bool,
     /// AC_ID
-    pub ac_id: u8,
+    pub ac_id: Option<u8>,
     /// Encryption keys: my private Q_A
     pub q_a: Vec<u8>,
     /// Encryption keys: my public P_A
